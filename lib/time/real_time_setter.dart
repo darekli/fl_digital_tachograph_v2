@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class RealTimeSetter extends StatefulWidget {
   final void Function(DateTime time, String timeZoneLabel) onTimeChanged;
+  final bool useArrowAdjustIcons;
 
   const RealTimeSetter({
     super.key,
     required this.onTimeChanged,
+    this.useArrowAdjustIcons = false,
   });
 
   @override
@@ -72,24 +74,47 @@ class _RealTimeSetterState extends State<RealTimeSetter> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          icon: const Icon(Icons.remove_circle_outline, size: 32),
+          icon: const Icon(Icons.replay, size: 32),
+          onPressed: _resetTime,
+          tooltip: 'Reset to current timezone',
+          color: Colors.white,
+        ),
+        const SizedBox(width: 32),
+        IconButton(
+          icon: Icon(
+            widget.useArrowAdjustIcons
+                ? Icons.arrow_circle_down_outlined
+                : Icons.remove_circle_outline,
+            size: 32,
+          ),
           onPressed: () => _adjustTime(-1),
           tooltip: 'Subtract one hour',
           color: Colors.white,
         ),
         const SizedBox(width: 32), // more space between icons
         IconButton(
-          icon: const Icon(Icons.add_circle_outline, size: 32),
+          icon: Icon(
+            widget.useArrowAdjustIcons
+                ? Icons.arrow_circle_up_outlined
+                : Icons.add_circle_outline,
+            size: 32,
+          ),
           onPressed: () => _adjustTime(1),
           tooltip: 'Add one hour',
           color: Colors.white,
         ),
         const SizedBox(width: 32),
-        IconButton(
-          icon: const Icon(Icons.replay, size: 32),
-          onPressed: _resetTime,
-          tooltip: 'Reset to current timezone',
-          color: Colors.white,
+        OutlinedButton(
+          onPressed: () => _adjustTime(0),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Colors.white, width: 2.5),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+          ),
+          child: const Text(
+            'OK',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );

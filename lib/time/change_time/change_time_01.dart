@@ -1,9 +1,8 @@
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
 import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/tacho_clock_row.dart';
 import 'package:flutter/material.dart';
-import 'digital_clock_ext.dart';
-import 'digital_tacho_clock.dart';
+
+
 
 // --- ASSUMED IMPORTS - Adjust paths as per your project structure ---
 // You MUST have these widgets defined and correctly imported.
@@ -19,13 +18,13 @@ import 'digital_tacho_clock.dart';
 // Define a callback type for when time or timezone label changes via RealTimeSetter
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
 
-class MainTopClockWidget extends StatelessWidget {
+class ChangeTime01Widget extends StatelessWidget {
   final DateTime externalTime; // The current time to display (e.g., _sharedUTC from parent)
   final String timeZoneLabel;  // The current timezone label (e.g., _sharedTimeZoneLabel from parent)
   final TopClockStateChanged onStateChanged; // Callback to notify parent of changes
   final bool useArrowAdjustIcons;
 
-  const MainTopClockWidget({
+  const ChangeTime01Widget({
     Key? key,
     required this.externalTime,
     required this.timeZoneLabel,
@@ -35,7 +34,7 @@ class MainTopClockWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column( // The main layout for this composite widget
+    return Column(
       mainAxisSize: MainAxisSize.min, // Takes up minimum vertical space
       children: [
         // Part 1: The clock display container
@@ -49,32 +48,17 @@ class MainTopClockWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Ensure this instantiation is correct for your DigitalClock6Elm widget
-                  const DigitalClock6Elm.DigitalClock6Elm(
-                    rectX: 3,
-                    rectY: 3,
-                    elements: [
-                      TachoIcons.tacho_clock,
-                      TachoIcons.tacho_empty,
-                      TachoIcons.tacho_empty,
-                      TachoIcons.tacho_empty,
-                    ],
-                  ),
-                  const SizedBox(width: 0), // Adjust if you need a bit of space
-                  DigitalClockExt(externalTime: externalTime), // Use the passed-in time
-                ],
-              ),
-             const SizedBox(height: 1),
-              TachoTextUTC(
-                text: timeZoneLabel, // Use the passed-in label
+              // First row: 16 grids — HH:MM | dot | empty | driving | empty×3 | 0km\h
+              TachoClockRow(
+                externalTime: externalTime,
                 rectX: 3,
                 rectY: 3,
-                color: Colors.white,
-                slots: 13,
+              ),
+             const SizedBox(height: 1),
+              // Second row: 16 grids — hammers | empty×2 | 243200.0km | empty×2 | bed
+              TachoSecondRow(
+                rectX: 3,
+                rectY: 3,
               ),
             ],
           ),

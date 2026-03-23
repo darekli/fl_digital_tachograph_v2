@@ -11,8 +11,16 @@ import 'package:fl_digital_tachograph_v2/time/main_top_clock.dart';
 import 'package:fl_digital_tachograph_v2/main.dart';
 
 void main() {
-  testWidgets('MainTopClockWidget is displayed', (WidgetTester tester) async {
+  testWidgets('OptionsView starts first and UTC button opens clock view', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(const MyApp());
+
+    expect(find.text('UTC'), findsOneWidget);
+    expect(find.text('Change Time'), findsOneWidget);
+
+    await tester.tap(find.text('UTC'));
+    await tester.pumpAndSettle();
 
     expect(find.byType(MainTopClockWidget), findsOneWidget);
   });
