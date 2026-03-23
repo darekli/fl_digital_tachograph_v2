@@ -1,6 +1,6 @@
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_chars.dart';
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
 import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +28,8 @@ class ChangeTime03Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = LanguageManager.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -38,24 +40,25 @@ class ChangeTime03Widget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: Colors.grey[900]?.withValues(alpha: 0.3),
           ),
-          child: const Column(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TachoTextUTC(
-                text: 'printout',
+                text: language.tachoPrintout,
                 rectX: 3,
                 rectY: 3,
                 color: Colors.white,
                 slots: 16,
               ),
               SizedBox(height: 1),
-              _VehicleRow16(rectX: 3, rectY: 3),
+              const _VehicleRow16(rectX: 3, rectY: 3),
             ],
           ),
         ),
         const SizedBox(height: 12),
         RealTimeSetter(
           useArrowAdjustIcons: useArrowAdjustIcons,
+          blinkIncreaseButton: true,
           onIncreasePressed: onArrowUpPressed,
           onDecreasePressed: onArrowDownPressed,
           onOkPressed: onOkPressed,
@@ -79,17 +82,13 @@ class _VehicleRow16 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final symbols = <List<List<int>>>[
-      TachoIcons.tacho_vehicle,
+    final language = LanguageManager.of(context);
+
+    final symbols = language.fitSymbolsToSlots(<List<List<int>>>[
+      TachoIcons.tacho_tacho,
       TachoIcons.tacho_arrow_down,
       TachoIcons.tacho_empty,
-      TachoChars.tachoChars('v') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('e') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('h') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('i') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('c') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('l') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('e') ?? TachoIcons.tacho_empty,
+      ...language.tachoText(language.tachoDriver),
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
@@ -97,7 +96,7 @@ class _VehicleRow16 extends StatelessWidget {
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
 
-    ];
+    ], 16);
 
     return Row(
       mainAxisSize: MainAxisSize.min,

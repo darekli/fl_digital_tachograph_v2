@@ -1,8 +1,8 @@
 import 'dart:async';
-
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
 import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_chars.dart';
 import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:flutter/material.dart';
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
@@ -76,6 +76,9 @@ class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
         const SizedBox(height: 12),
         RealTimeSetter(
           useArrowAdjustIcons: widget.useArrowAdjustIcons,
+          blinkIncreaseButton: true,
+          blinkDecreaseButton: true,
+          blinkOkButton: true,
           onIncreasePressed: _addThirtyMinutesOnRight,
           onDecreasePressed: _subtractThirtyMinutesOnRight,
           onOkPressed: widget.onOkPressed,
@@ -86,11 +89,10 @@ class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
   }
 
   List<List<List<int>>> _buildTopRow() {
+    final language = LanguageManager.of(context);
     final date = _formatDate(_now);
     return <List<List<int>>>[
-      TachoChars.tachoChars('U') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('T') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('C') ?? TachoIcons.tacho_empty,
+      ...language.tachoText(language.utc),
       TachoIcons.tacho_clock,
       TachoIcons.tacho_empty,
       ...date.split('').map((c) => TachoChars.tachoChars(c) ?? TachoIcons.tacho_empty),
@@ -167,12 +169,14 @@ class _GridRow16 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final normalizedSymbols = LanguageManager().fitSymbolsToSlots(symbols, 16);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (int i = 0; i < symbols.length; i++) ...[
-          _buildCell(symbols[i]),
-          if (i < symbols.length - 1) const SizedBox(width: 1),
+        for (int i = 0; i < normalizedSymbols.length; i++) ...[
+          _buildCell(normalizedSymbols[i]),
+          if (i < normalizedSymbols.length - 1) const SizedBox(width: 1),
         ],
       ],
     );

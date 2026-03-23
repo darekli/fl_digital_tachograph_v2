@@ -1,4 +1,5 @@
-import 'package:fl_digital_tachograph_v2/time/main_top_clock.dart';
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/main_top_clock.dart';
 import 'package:flutter/material.dart';
 
 class UtcView extends StatefulWidget {
@@ -15,25 +16,9 @@ class _UtcViewState extends State<UtcView> {
   @override
   void initState() {
     super.initState();
-    _sharedTimeZoneLabel = _buildUtcOffsetLabel(DateTime.now().timeZoneOffset);
-  }
-
-  String _buildUtcOffsetLabel(Duration offset) {
-    if (offset == Duration.zero) {
-      return 'UTC';
-    }
-
-    final totalMinutes = offset.inMinutes;
-    final sign = totalMinutes >= 0 ? '+' : '-';
-    final absoluteMinutes = totalMinutes.abs();
-    final hours = absoluteMinutes ~/ 60;
-    final minutes = absoluteMinutes % 60;
-
-    if (minutes == 0) {
-      return 'UTC$sign$hours';
-    }
-
-    return 'UTC$sign$hours:${minutes.toString().padLeft(2, '0')}';
+    _sharedTimeZoneLabel = LanguageManager().formatUtcOffset(
+      DateTime.now().timeZoneOffset,
+    );
   }
 
   @override

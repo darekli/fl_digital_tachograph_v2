@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
 import 'package:flutter/material.dart';
 
@@ -37,34 +38,51 @@ class _ChangeTime11WidgetState extends State<ChangeTime11Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white24, width: 1),
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.grey[900]?.withValues(alpha: 0.3),
-      ),
-      child: const Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TachoTextUTC(
-            text: 'entry stored',
-            rectX: 3,
-            rectY: 3,
-            color: Colors.white,
-            slots: 16,
+    final language = LanguageManager.of(context);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white24, width: 1),
+            borderRadius: BorderRadius.circular(8),
+            color: Colors.grey[900]?.withValues(alpha: 0.3),
           ),
-          SizedBox(height: 1),
-          TachoTextUTC(
-            text: '',
-            rectX: 3,
-            rectY: 3,
-            color: Colors.white,
-            slots: 16,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TachoTextUTC(
+                text: language.tachoEntryStored,
+                rectX: 3,
+                rectY: 3,
+                color: Colors.white,
+                slots: 16,
+              ),
+              SizedBox(height: 1),
+              TachoTextUTC(
+                text: '',
+                rectX: 3,
+                rectY: 3,
+                color: Colors.white,
+                slots: 16,
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 12),
+        RealTimeSetter(
+          useArrowAdjustIcons: true,
+          onIncreasePressed: () {},
+          onDecreasePressed: () {},
+          onOkPressed: () {},
+          onTimeChanged: _ignore,
+        ),
+      ],
     );
   }
+
+  static void _ignore(DateTime _, String __) {}
 }
 

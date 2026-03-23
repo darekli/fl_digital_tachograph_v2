@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_01.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_02.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_03.dart';
@@ -33,33 +34,15 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
   @override
   void initState() {
     super.initState();
-    _sharedTimeZoneLabel = _buildUtcOffsetLabel(DateTime
-        .now()
-        .timeZoneOffset);
+    _sharedTimeZoneLabel = LanguageManager().formatUtcOffset(
+      DateTime.now().timeZoneOffset,
+    );
   }
 
   @override
   void dispose() {
     _autoToScreen12Timer?.cancel();
     super.dispose();
-  }
-
-  String _buildUtcOffsetLabel(Duration offset) {
-    if (offset == Duration.zero) {
-      return 'UTC';
-    }
-
-    final totalMinutes = offset.inMinutes;
-    final sign = totalMinutes >= 0 ? '+' : '-';
-    final absoluteMinutes = totalMinutes.abs();
-    final hours = absoluteMinutes ~/ 60;
-    final minutes = absoluteMinutes % 60;
-
-    if (minutes == 0) {
-      return 'UTC$sign$hours';
-    }
-
-    return 'UTC$sign$hours:${minutes.toString().padLeft(2, '0')}';
   }
 
   void _startAutoToScreen12Timer() {
@@ -84,10 +67,12 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
 
   @override
   Widget build(BuildContext context) {
+    final language = LanguageManager.of(context);
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A1F44),
       appBar: AppBar(
-        title: const Text('Change Time'),
+        title: Text(language.changeTimeTitle),
         backgroundColor: const Color(0xFF0A1F44),
         foregroundColor: Colors.white,
       ),
@@ -98,6 +83,7 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
                   externalTime: _sharedUTC,
                   timeZoneLabel: _sharedTimeZoneLabel,
                   useArrowAdjustIcons: true,
+                  blinkArrowUp: true,
                   onArrowUpPressed: () {
                     setState(() {
                       _screen = 2;
@@ -375,7 +361,7 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
                                                       useArrowAdjustIcons: true,
                                                       onArrowUpPressed: () {
                                                         setState(() {
-                                                          _screen = 2;
+                                                          _screen = 1;
                                                         });
                                                       },
                                                       onArrowDownPressed: () {

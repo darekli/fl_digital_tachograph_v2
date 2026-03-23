@@ -26,6 +26,7 @@ class ChangeTime12Widget extends StatelessWidget {
       timeZoneLabel: timeZoneLabel,
       onStateChanged: onStateChanged,
       useArrowAdjustIcons: useArrowAdjustIcons,
+      blinkOkButton: false,
       onArrowUpPressed: onArrowUpPressed,
       onArrowDownPressed: onArrowDownPressed,
     );

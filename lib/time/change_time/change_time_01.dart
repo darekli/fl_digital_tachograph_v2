@@ -1,4 +1,4 @@
-import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:fl_digital_tachograph_v2/time/widgets/tacho_clock_row.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +23,8 @@ class ChangeTime01Widget extends StatelessWidget {
   final String timeZoneLabel;  // The current timezone label (e.g., _sharedTimeZoneLabel from parent)
   final TopClockStateChanged onStateChanged; // Callback to notify parent of changes
   final bool useArrowAdjustIcons;
+  final bool blinkArrowUp;
+  final bool blinkOkButton;
   final VoidCallback? onArrowUpPressed;
   final VoidCallback? onArrowDownPressed;
 
@@ -32,6 +34,8 @@ class ChangeTime01Widget extends StatelessWidget {
     required this.timeZoneLabel,
     required this.onStateChanged,
     this.useArrowAdjustIcons = false,
+    this.blinkArrowUp = false,
+    this.blinkOkButton = false,
     this.onArrowUpPressed,
     this.onArrowDownPressed,
   }) : super(key: key);
@@ -77,6 +81,8 @@ class ChangeTime01Widget extends StatelessWidget {
          */
         RealTimeSetter(
           useArrowAdjustIcons: useArrowAdjustIcons,
+          blinkIncreaseButton: blinkArrowUp,
+          blinkOkButton: blinkOkButton,
           onIncreasePressed: onArrowUpPressed,
           onDecreasePressed: onArrowDownPressed,
           // The onTimeChanged callback of RealTimeSetter will now call

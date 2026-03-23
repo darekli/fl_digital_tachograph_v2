@@ -1,5 +1,5 @@
 import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
 import 'package:flutter/material.dart';
 import 'digital_clock_ext.dart';

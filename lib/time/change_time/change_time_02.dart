@@ -1,5 +1,6 @@
-import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
 import 'package:flutter/material.dart';
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
@@ -26,6 +27,8 @@ class ChangeTime02Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = LanguageManager.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -36,12 +39,12 @@ class ChangeTime02Widget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: Colors.grey[900]?.withValues(alpha: 0.3),
           ),
-          child: const Column(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // First row: "call main menu?" then empty grids up to 16 slots.
               TachoTextUTC(
-                text: 'call main menu?',
+                text: language.tachoCallMainMenu,
                 rectX: 3,
                 rectY: 3,
                 color: Colors.white,
@@ -62,6 +65,7 @@ class ChangeTime02Widget extends StatelessWidget {
         const SizedBox(height: 12),
         RealTimeSetter(
           useArrowAdjustIcons: useArrowAdjustIcons,
+          blinkOkButton: true,
           onIncreasePressed: onArrowUpPressed,
           onDecreasePressed: onArrowDownPressed,
           onOkPressed: onOkPressed,

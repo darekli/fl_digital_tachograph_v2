@@ -6,18 +6,23 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fl_digital_tachograph_v2/time/main_top_clock.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/main_top_clock.dart';
 
 import 'package:fl_digital_tachograph_v2/main.dart';
 
 void main() {
-  testWidgets('OptionsView starts first and UTC button opens clock view', (
+  testWidgets('OptionsView starts first, can switch to Polski, and UTC opens clock view', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(const MyApp());
 
     expect(find.text('UTC'), findsOneWidget);
     expect(find.text('Change Time'), findsOneWidget);
+
+    await tester.tap(find.text('Polski'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Zmień czas'), findsOneWidget);
 
     await tester.tap(find.text('UTC'));
     await tester.pumpAndSettle();

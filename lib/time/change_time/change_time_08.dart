@@ -1,6 +1,6 @@
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_chars.dart';
+import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
 import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:flutter/material.dart';
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
@@ -49,6 +49,7 @@ class ChangeTime08Widget extends StatelessWidget {
         const SizedBox(height: 12),
         RealTimeSetter(
           useArrowAdjustIcons: useArrowAdjustIcons,
+          blinkIncreaseButton: true,
           onIncreasePressed: onArrowUpPressed,
           onDecreasePressed: onArrowDownPressed,
           onOkPressed: onOkPressed,
@@ -72,17 +73,13 @@ class _VehicleRow16 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = LanguageManager.of(context);
+
     final symbols = <List<List<int>>>[
       TachoIcons.tacho_vehicle,
       TachoIcons.tacho_arrow_down_right,
       TachoIcons.tacho_empty,
-      TachoChars.tachoChars('v') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('e') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('h') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('i') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('c') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('l') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('e') ?? TachoIcons.tacho_empty,
+      ...language.tachoText(language.tachoVehicle),
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
@@ -106,22 +103,13 @@ class _CompanyTimeRow16 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final language = LanguageManager.of(context);
+
     final symbols = <List<List<int>>>[
       TachoIcons.tacho_battery,
       TachoIcons.tacho_clock,
       TachoIcons.tacho_empty,
-      TachoChars.tachoChars('c') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('o') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('m') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('p') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('a') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('n') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('y') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars(' ') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('t') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('i') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('m') ?? TachoIcons.tacho_empty,
-      TachoChars.tachoChars('e') ?? TachoIcons.tacho_empty,
+      ...language.tachoText(language.tachoCompanyTime),
       TachoIcons.tacho_empty,
     ];
 
@@ -142,12 +130,14 @@ class _GridRow16 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final normalizedSymbols = LanguageManager().fitSymbolsToSlots(symbols, 16);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (int i = 0; i < symbols.length; i++) ...[
-          _buildCell(symbols[i]),
-          if (i < symbols.length - 1) const SizedBox(width: 1),
+        for (int i = 0; i < normalizedSymbols.length; i++) ...[
+          _buildCell(normalizedSymbols[i]),
+          if (i < normalizedSymbols.length - 1) const SizedBox(width: 1),
         ],
       ],
     );
