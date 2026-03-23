@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_01.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_02.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_03.dart';
@@ -9,6 +11,7 @@ import 'package:fl_digital_tachograph_v2/time/change_time/change_time_08.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_09.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_10.dart';
 import 'package:fl_digital_tachograph_v2/time/change_time/change_time_11.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_12.dart';
 import 'package:flutter/material.dart';
 
 class ChangeTimeView extends StatefulWidget {
@@ -21,7 +24,11 @@ class ChangeTimeView extends StatefulWidget {
 class _ChangeTimeViewState extends State<ChangeTimeView> {
   DateTime _sharedUTC = DateTime.now();
   late String _sharedTimeZoneLabel;
+  DateTime? _screen10ManualTime;
+  String? _screen10ManualLabel;
+  DateTime? _screen12LockUntil;
   int _screen = 1;
+  Timer? _autoToScreen12Timer;
 
   @override
   void initState() {
@@ -29,6 +36,12 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
     _sharedTimeZoneLabel = _buildUtcOffsetLabel(DateTime
         .now()
         .timeZoneOffset);
+  }
+
+  @override
+  void dispose() {
+    _autoToScreen12Timer?.cancel();
+    super.dispose();
   }
 
   String _buildUtcOffsetLabel(Duration offset) {
@@ -47,6 +60,26 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
     }
 
     return 'UTC$sign$hours:${minutes.toString().padLeft(2, '0')}';
+  }
+
+  void _startAutoToScreen12Timer() {
+    _autoToScreen12Timer?.cancel();
+    _autoToScreen12Timer = Timer(const Duration(seconds: 3), () {
+      if (!mounted || _screen != 9) {
+        return;
+      }
+
+      setState(() {
+        if (_screen10ManualTime != null) {
+          _sharedUTC = _screen10ManualTime!;
+        }
+        if (_screen10ManualLabel != null) {
+          _sharedTimeZoneLabel = _screen10ManualLabel!;
+        }
+        _screen12LockUntil = DateTime.now().add(const Duration(seconds: 6));
+        _screen = 12;
+      });
+    });
   }
 
   @override
@@ -322,13 +355,44 @@ class _ChangeTimeViewState extends State<ChangeTimeView> {
                                                         setState(() {
                                                           _sharedUTC = newTime;
                                                           _sharedTimeZoneLabel = newLabel;
+                                                          _screen10ManualTime = newTime;
+                                                          _screen10ManualLabel = newLabel;
                                                         });
                                                       },
                                                     )
-                                                  : ChangeTime11Widget(
-                                                      onAutoReturnToScreen9: () {
+                                                  : _screen == 11
+                                                      ? ChangeTime11Widget(
+                                                          onAutoReturnToScreen9: () {
+                                                            setState(() {
+                                                              _screen = 9;
+                                                            });
+                                                            _startAutoToScreen12Timer();
+                                                          },
+                                                        )
+                                                      : ChangeTime12Widget(
+                                                      externalTime: _sharedUTC,
+                                                      timeZoneLabel: _sharedTimeZoneLabel,
+                                                      useArrowAdjustIcons: true,
+                                                      onArrowUpPressed: () {
                                                         setState(() {
-                                                          _screen = 9;
+                                                          _screen = 2;
+                                                        });
+                                                      },
+                                                      onArrowDownPressed: () {
+                                                        setState(() {
+                                                          _screen = 12;
+                                                        });
+                                                      },
+                                                      onStateChanged: (DateTime newTime, String newLabel) {
+                                                        final lockUntil = _screen12LockUntil;
+                                                        if (lockUntil != null && DateTime.now().isBefore(lockUntil)) {
+                                                          return;
+                                                        }
+
+                                                        setState(() {
+                                                          _screen12LockUntil = null;
+                                                          _sharedUTC = newTime;
+                                                          _sharedTimeZoneLabel = newLabel;
                                                         });
                                                       },
                                                     ),

@@ -123,12 +123,19 @@ class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
     setState(() {
       _rightTimeOffsetMinutes += 30;
     });
+    _notifyAdjustedRightTime();
   }
 
   void _subtractThirtyMinutesOnRight() {
     setState(() {
       _rightTimeOffsetMinutes -= 30;
     });
+    _notifyAdjustedRightTime();
+  }
+
+  void _notifyAdjustedRightTime() {
+    final adjustedRightTime = _now.add(Duration(minutes: _rightTimeOffsetMinutes));
+    widget.onStateChanged(adjustedRightTime, widget.timeZoneLabel);
   }
 
   String _formatDate(DateTime dt) {
