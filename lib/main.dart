@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fl_digital_tachograph_v2/change_time_view.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_view.dart';
 import 'package:fl_digital_tachograph_v2/options_view.dart';
-import 'package:fl_digital_tachograph_v2/utc_view.dart';
+import 'package:fl_digital_tachograph_v2/time/just_utc/utc_view.dart';
 
 void main() {
   runApp(const MyApp());

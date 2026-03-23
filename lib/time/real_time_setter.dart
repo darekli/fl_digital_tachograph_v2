@@ -4,11 +4,17 @@ import 'package:flutter/material.dart';
 class RealTimeSetter extends StatefulWidget {
   final void Function(DateTime time, String timeZoneLabel) onTimeChanged;
   final bool useArrowAdjustIcons;
+  final VoidCallback? onIncreasePressed;
+  final VoidCallback? onDecreasePressed;
+  final VoidCallback? onOkPressed;
 
   const RealTimeSetter({
     super.key,
     required this.onTimeChanged,
     this.useArrowAdjustIcons = false,
+    this.onIncreasePressed,
+    this.onDecreasePressed,
+    this.onOkPressed,
   });
 
   @override
@@ -83,29 +89,29 @@ class _RealTimeSetterState extends State<RealTimeSetter> {
         IconButton(
           icon: Icon(
             widget.useArrowAdjustIcons
-                ? Icons.arrow_circle_down_outlined
-                : Icons.remove_circle_outline,
+                ? Icons.arrow_circle_up_outlined
+                : Icons.add_circle_outline,
             size: 32,
           ),
-          onPressed: () => _adjustTime(-1),
-          tooltip: 'Subtract one hour',
+          onPressed: widget.onIncreasePressed ?? () => _adjustTime(1),
+          tooltip: 'Add one hour',
           color: Colors.white,
         ),
         const SizedBox(width: 32), // more space between icons
         IconButton(
           icon: Icon(
             widget.useArrowAdjustIcons
-                ? Icons.arrow_circle_up_outlined
-                : Icons.add_circle_outline,
+                ? Icons.arrow_circle_down_outlined
+                : Icons.remove_circle_outline,
             size: 32,
           ),
-          onPressed: () => _adjustTime(1),
-          tooltip: 'Add one hour',
+          onPressed: widget.onDecreasePressed ?? () => _adjustTime(-1),
+          tooltip: 'Subtract one hour',
           color: Colors.white,
         ),
         const SizedBox(width: 32),
         OutlinedButton(
-          onPressed: () => _adjustTime(0),
+          onPressed: widget.onOkPressed ?? () => _adjustTime(0),
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.white,
             side: const BorderSide(color: Colors.white, width: 2.5),

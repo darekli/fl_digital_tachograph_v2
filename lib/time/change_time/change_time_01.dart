@@ -23,6 +23,8 @@ class ChangeTime01Widget extends StatelessWidget {
   final String timeZoneLabel;  // The current timezone label (e.g., _sharedTimeZoneLabel from parent)
   final TopClockStateChanged onStateChanged; // Callback to notify parent of changes
   final bool useArrowAdjustIcons;
+  final VoidCallback? onArrowUpPressed;
+  final VoidCallback? onArrowDownPressed;
 
   const ChangeTime01Widget({
     Key? key,
@@ -30,6 +32,8 @@ class ChangeTime01Widget extends StatelessWidget {
     required this.timeZoneLabel,
     required this.onStateChanged,
     this.useArrowAdjustIcons = false,
+    this.onArrowUpPressed,
+    this.onArrowDownPressed,
   }) : super(key: key);
 
   @override
@@ -73,6 +77,8 @@ class ChangeTime01Widget extends StatelessWidget {
          */
         RealTimeSetter(
           useArrowAdjustIcons: useArrowAdjustIcons,
+          onIncreasePressed: onArrowUpPressed,
+          onDecreasePressed: onArrowDownPressed,
           // The onTimeChanged callback of RealTimeSetter will now call
           // the onStateChanged callback passed to MainTopClockWidget.
           onTimeChanged: (DateTime newTimeFromSetter, String newLabelFromSetter) {
