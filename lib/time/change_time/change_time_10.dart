@@ -33,8 +33,10 @@ class ChangeTime10Widget extends StatefulWidget {
 
 class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
   late Timer _timer;
+  late Timer _blinkTimer;
   DateTime _now = DateTime.now();
   int _rightTimeOffsetMinutes = 0;
+  bool _showBlinkingRight = true;
 
   @override
   void initState() {
@@ -44,11 +46,17 @@ class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
         _now = DateTime.now();
       });
     });
+    _blinkTimer = Timer.periodic(const Duration(milliseconds: 500), (_) {
+      setState(() {
+        _showBlinkingRight = !_showBlinkingRight;
+      });
+    });
   }
 
   @override
   void dispose() {
     _timer.cancel();
+    _blinkTimer.cancel();
     super.dispose();
   }
 
@@ -105,6 +113,18 @@ class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
     final rightTime = _formatTime(
       _now.add(Duration(minutes: _rightTimeOffsetMinutes)),
     );
+    
+    final rightTimeSymbols = _showBlinkingRight
+        ? rightTime
+            .split('')
+            .map((c) => TachoChars.tachoChars(c) ?? TachoIcons.tacho_empty)
+            .toList()
+        : List.filled(5, TachoIcons.tacho_empty);
+    
+    final rightDotSymbol = _showBlinkingRight
+        ? TachoIcons.tacho_dot
+        : TachoIcons.tacho_empty;
+
     return <List<List<int>>>[
       ...leftTime
           .split('')
@@ -114,10 +134,8 @@ class _ChangeTime10WidgetState extends State<ChangeTime10Widget> {
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
-      ...rightTime
-          .split('')
-          .map((c) => TachoChars.tachoChars(c) ?? TachoIcons.tacho_empty),
-      TachoIcons.tacho_dot,
+      ...rightTimeSymbols,
+      rightDotSymbol,
     ];
   }
 
