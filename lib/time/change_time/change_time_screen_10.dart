@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_chars.dart';
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:flutter/material.dart';
+
+import '../../pictograms/tacho_chars.dart';
+import '../../pictograms/tacho_icons.dart';
+import '../../widgets/real_time_setter.dart';
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
 

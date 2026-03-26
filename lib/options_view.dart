@@ -37,12 +37,12 @@ class OptionsView extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 64),
               ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/utc'),
                 child: Text(language.utc),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 64),
               ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, '/change-time'),
                 child: Text(language.changeTime),

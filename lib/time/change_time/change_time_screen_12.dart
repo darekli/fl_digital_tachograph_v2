@@ -1,4 +1,4 @@
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_01.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_01.dart';
 import 'package:flutter/material.dart';
 
 class ChangeTime12Widget extends StatelessWidget {

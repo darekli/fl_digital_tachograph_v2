@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/main_top_clock.dart';
+import 'package:fl_digital_tachograph_v2/widgets/main_top_clock.dart';
 
 import 'package:fl_digital_tachograph_v2/main.dart';
 

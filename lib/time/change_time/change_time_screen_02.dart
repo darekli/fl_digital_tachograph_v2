@@ -1,7 +1,7 @@
-import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
-import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
 import 'package:flutter/material.dart';
+import '../../language/language_manager.dart';
+import '../../widgets/real_time_setter.dart';
+import '../../widgets/tacho_utc_text.dart';
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
 

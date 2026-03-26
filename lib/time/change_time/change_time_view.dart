@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_01.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_02.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_03.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_04.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_05.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_06.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_07.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_08.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_09.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_10.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_11.dart';
-import 'package:fl_digital_tachograph_v2/time/change_time/change_time_12.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_01.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_02.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_03.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_04.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_05.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_06.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_07.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_08.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_09.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_10.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_11.dart';
+import 'package:fl_digital_tachograph_v2/time/change_time/change_time_screen_12.dart';
 import 'package:flutter/material.dart';
 
 class ChangeTimeView extends StatefulWidget {

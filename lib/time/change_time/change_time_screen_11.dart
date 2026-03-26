@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/real_time_setter.dart';
+import '../../widgets/tacho_utc_text.dart';
 
 class ChangeTime11Widget extends StatefulWidget {
   final VoidCallback onAutoReturnToScreen9;

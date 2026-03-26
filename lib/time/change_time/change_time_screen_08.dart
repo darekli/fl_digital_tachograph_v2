@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
 import 'package:flutter/material.dart';
+
+import '../../pictograms/tacho_icons.dart';
+import '../../widgets/real_time_setter.dart';
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
 
-class ChangeTime07Widget extends StatefulWidget {
+class ChangeTime08Widget extends StatefulWidget {
   final DateTime externalTime;
   final String timeZoneLabel;
   final TopClockStateChanged onStateChanged;
@@ -15,7 +16,7 @@ class ChangeTime07Widget extends StatefulWidget {
   final VoidCallback? onArrowDownPressed;
   final VoidCallback? onOkPressed;
 
-  const ChangeTime07Widget({
+  const ChangeTime08Widget({
     super.key,
     required this.externalTime,
     required this.timeZoneLabel,
@@ -27,10 +28,10 @@ class ChangeTime07Widget extends StatefulWidget {
   });
 
   @override
-  State<ChangeTime07Widget> createState() => _ChangeTime07WidgetState();
+  State<ChangeTime08Widget> createState() => _ChangeTime08WidgetState();
 }
 
-class _ChangeTime07WidgetState extends State<ChangeTime07Widget> {
+class _ChangeTime08WidgetState extends State<ChangeTime08Widget> {
   late Timer _blinkTimer;
   bool _showBottomRow = true;
 
@@ -68,7 +69,7 @@ class _ChangeTime07WidgetState extends State<ChangeTime07Widget> {
               _VehicleRow16(rectX: 3, rectY: 3),
               SizedBox(height: 1),
               _showBottomRow
-                  ? _LicenceCodeRow16(rectX: 3, rectY: 3)
+                  ? _CompanyTimeRow16(rectX: 3, rectY: 3)
                   : _buildBlankRow(),
             ],
           ),
@@ -150,11 +151,11 @@ class _VehicleRow16 extends StatelessWidget {
   }
 }
 
-class _LicenceCodeRow16 extends StatelessWidget {
+class _CompanyTimeRow16 extends StatelessWidget {
   final double rectX;
   final double rectY;
 
-  const _LicenceCodeRow16({
+  const _CompanyTimeRow16({
     required this.rectX,
     required this.rectY,
   });
@@ -164,10 +165,10 @@ class _LicenceCodeRow16 extends StatelessWidget {
     final language = LanguageManager.of(context);
 
     final symbols = <List<List<int>>>[
-      TachoIcons.tacho_dollar,
+      TachoIcons.tacho_battery,
+      TachoIcons.tacho_clock,
       TachoIcons.tacho_empty,
-      ...language.tachoText(language.tachoLicenceCode),
-      TachoIcons.tacho_empty,
+      ...language.tachoText(language.tachoCompanyTime),
       TachoIcons.tacho_empty,
     ];
 

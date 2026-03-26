@@ -1,6 +1,7 @@
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_chars.dart';
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
 import 'package:flutter/material.dart';
+
+import '../pictograms/tacho_chars.dart';
+import '../pictograms/tacho_icons.dart';
 
 enum AppLanguage { english, polish }
 
@@ -47,11 +48,11 @@ class LanguageManager extends ChangeNotifier {
   String get tachoVehicle => isPolish ? 'pojazd' : 'vehicle';
   String get tachoDriver => isPolish ? 'kierowca' : 'driver';
   String get tachoOut => isPolish ? 'WYJ' : 'OUT';
-  String get tachoBegin => isPolish ? 'pocz' : 'begin';
+  String get tachoBegin => isPolish ? 'początek' : 'begin';
   String get tachoLicenceCode => isPolish ? 'kod licencji' : 'licence code';
-  String get tachoCompanyTime => isPolish ? 'czas firmy' : 'company time';
+  String get tachoCompanyTime => isPolish ? 'czas firma' : 'company time';
   String get tachoLocalTime => isPolish ? 'czas lokalny' : 'local time';
-  String get tachoEntryStored => isPolish ? 'zapis wpisu' : 'entry stored';
+  String get tachoEntryStored => isPolish ? 'wpis zachowany' : 'entry stored';
 
   String formatUtcOffset(Duration offset) {
     if (offset == Duration.zero) {

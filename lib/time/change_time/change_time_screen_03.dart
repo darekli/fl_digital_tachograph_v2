@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
-import 'package:fl_digital_tachograph_v2/time/pictograms/tacho_icons.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/tacho_utc_text.dart';
+import 'package:fl_digital_tachograph_v2/pictograms/tacho_icons.dart';
+import 'package:fl_digital_tachograph_v2/widgets/real_time_setter.dart';
+import 'package:fl_digital_tachograph_v2/widgets/tacho_utc_text.dart';
 import 'package:flutter/material.dart';
-
 
 typedef TopClockStateChanged = void Function(DateTime newTime, String newTimeZoneLabel);
 
-class ChangeTime05Widget extends StatefulWidget {
+class ChangeTime03Widget extends StatefulWidget {
   final DateTime externalTime;
   final String timeZoneLabel;
   final TopClockStateChanged onStateChanged;
@@ -17,7 +16,7 @@ class ChangeTime05Widget extends StatefulWidget {
   final VoidCallback? onArrowDownPressed;
   final VoidCallback? onOkPressed;
 
-  const ChangeTime05Widget({
+  const ChangeTime03Widget({
     super.key,
     required this.externalTime,
     required this.timeZoneLabel,
@@ -29,10 +28,10 @@ class ChangeTime05Widget extends StatefulWidget {
   });
 
   @override
-  State<ChangeTime05Widget> createState() => _ChangeTime05WidgetState();
+  State<ChangeTime03Widget> createState() => _ChangeTime03WidgetState();
 }
 
-class _ChangeTime05WidgetState extends State<ChangeTime05Widget> {
+class _ChangeTime03WidgetState extends State<ChangeTime03Widget> {
   late Timer _blinkTimer;
   bool _showBottomRow = true;
 
@@ -70,7 +69,7 @@ class _ChangeTime05WidgetState extends State<ChangeTime05Widget> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TachoTextUTC(
-                text: language.tachoEntry,
+                text: language.tachoPrintout,
                 rectX: 3,
                 rectY: 3,
                 color: Colors.white,
@@ -78,7 +77,7 @@ class _ChangeTime05WidgetState extends State<ChangeTime05Widget> {
               ),
               SizedBox(height: 1),
               _showBottomRow
-                  ? _EntryRow16(rectX: 3, rectY: 3)
+                  ? const _VehicleRow16(rectX: 3, rectY: 3)
                   : _buildBlankRow(),
             ],
           ),
@@ -86,7 +85,7 @@ class _ChangeTime05WidgetState extends State<ChangeTime05Widget> {
         const SizedBox(height: 12),
         RealTimeSetter(
           useArrowAdjustIcons: widget.useArrowAdjustIcons,
-          blinkOkButton: true,
+          blinkIncreaseButton: true,
           onIncreasePressed: widget.onArrowUpPressed,
           onDecreasePressed: widget.onArrowDownPressed,
           onOkPressed: widget.onOkPressed,
@@ -130,11 +129,11 @@ class _ChangeTime05WidgetState extends State<ChangeTime05Widget> {
   static void _ignore(DateTime _, String __) {}
 }
 
-class _EntryRow16 extends StatelessWidget {
+class _VehicleRow16 extends StatelessWidget {
   final double rectX;
   final double rectY;
 
-  const _EntryRow16({
+  const _VehicleRow16({
     required this.rectX,
     required this.rectY,
   });
@@ -144,16 +143,17 @@ class _EntryRow16 extends StatelessWidget {
     final language = LanguageManager.of(context);
 
     final symbols = language.fitSymbolsToSlots(<List<List<int>>>[
-      TachoIcons.tacho_vehicle,
-      TachoIcons.tacho_arrow_down_right,
+      TachoIcons.tacho_tacho,
+      TachoIcons.tacho_arrow_down,
       TachoIcons.tacho_empty,
-      ...language.tachoText(language.tachoVehicle),
+      ...language.tachoText(language.tachoDriver),
       TachoIcons.tacho_empty,
-      TachoIcons.tacho_empty,
-      TachoIcons.tacho_empty,
-      TachoIcons.tacho_empty,
+      TachoIcons.tacho_1,
       TachoIcons.tacho_empty,
       TachoIcons.tacho_empty,
+      TachoIcons.tacho_empty,
+      TachoIcons.tacho_empty,
+
     ], 16);
 
     return Row(

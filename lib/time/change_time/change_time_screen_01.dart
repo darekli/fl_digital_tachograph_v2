@@ -1,6 +1,6 @@
-import 'package:fl_digital_tachograph_v2/time/widgets/real_time_setter.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/tacho_clock_row.dart';
 import 'package:flutter/material.dart';
+import '../../widgets/real_time_setter.dart';
+import '../../widgets/tacho_clock_row.dart';
 
 
 

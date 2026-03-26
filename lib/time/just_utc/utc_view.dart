@@ -1,5 +1,6 @@
 import 'package:fl_digital_tachograph_v2/language/language_manager.dart';
-import 'package:fl_digital_tachograph_v2/time/widgets/main_top_clock.dart';
+import 'package:fl_digital_tachograph_v2/options_view.dart';
+import 'package:fl_digital_tachograph_v2/widgets/main_top_clock.dart';
 import 'package:flutter/material.dart';
 
 class UtcView extends StatefulWidget {
@@ -24,7 +25,24 @@ class _UtcViewState extends State<UtcView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0A1F44),
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('UTC Time'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+              return;
+            }
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => const OptionsView()),
+            );
+          },
+        ),
+      ),
       body: SafeArea(
         child: Center(
           child: MainTopClockWidget(
@@ -42,4 +60,3 @@ class _UtcViewState extends State<UtcView> {
     );
   }
 }
-
