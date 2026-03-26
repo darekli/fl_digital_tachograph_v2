@@ -4,9 +4,23 @@ Flutter app that simulates digital tachograph style screens, including UTC view,
 
 ## Preview
 
-![Options view](docs/assets/screenshots/options_view.png)
-![UTC view](docs/assets/screenshots/utc_view.png)
-![Change Time view](docs/assets/screenshots/change_time_view.png)
+<p align="center">
+  <a href="assets/options_view.png">
+	<img src="assets/options_view.png" alt="Options view" width="30%" />
+  </a>
+  <a href="assets/utc_view.png">
+	<img src="assets/utc_view.png" alt="UTC view" width="30%" />
+  </a>
+  <a href="assets/change_time_view.png">
+	<img src="assets/change_time_view.png" alt="Change Time view" width="30%" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>Options View</strong> &nbsp;•&nbsp; <strong>UTC View</strong> &nbsp;•&nbsp; <strong>Change Time View</strong>
+</p>
+
+Click any screenshot to open the full-size image.
 
 `docs/config/gradle.properties.example` contains a docs-safe Gradle template matching your local setup pattern.
 
@@ -26,7 +40,7 @@ Flutter app that simulates digital tachograph style screens, including UTC view,
 - `lib/time/change_time/` - change-time screens and flow
 - `lib/language/language_manager.dart` - labels and language handling
 - `lib/widgets/` and `lib/pictograms/` - reusable UI and icon/char grids
-- `docs/assets/screenshots/` - GitHub README screenshots
+- `assets/` - app screenshots and Flutter image assets
 - `docs/config/` - non-sensitive config examples
 
 ## Run Locally
@@ -51,4 +65,8 @@ flutter test
 
 ## License
 
-Private/internal project unless you add a separate `LICENSE` file.
+This project is licensed under the MIT License.
+
+You are free to use, copy, modify, and share the whole project or separate parts of it, as long as the MIT license notice is kept with substantial portions of the code.
+
+See [`LICENSE`](LICENSE) for details.

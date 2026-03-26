@@ -4,7 +4,7 @@ This folder contains repository documentation assets used by `README.md`.
 
 ## Structure
 
-- `assets/screenshots/` - app screenshots rendered on GitHub
+- `../assets/` - app screenshots used both by Flutter and `README.md`
 - `config/` - safe example configs for documentation
 
 ## Notes
