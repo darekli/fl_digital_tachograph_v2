@@ -65,7 +65,7 @@ class _TachoClockRowState extends State<TachoClockRow> {
       TachoChars.tachoChars(m[1]) ?? TachoIcons.tacho_empty, // 5  M units
       TachoIcons.tacho_dot,                                   // 6
       TachoIcons.tacho_empty,                                 // 7
-      TachoIcons.tacho_driving_7x5,                           // 8
+      TachoIcons.tacho_driving,                           // 8
       TachoIcons.tacho_empty,                                 // 9
       TachoIcons.tacho_empty,                                 // 10
       TachoIcons.tacho_empty,                                 // 11
@@ -136,8 +136,8 @@ class TachoSecondRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final symbols = <List<List<int>>>[
-      TachoIcons.tacho_hammers,                                // 1
-      TachoIcons.tacho_empty,                                  // 2
+      TachoIcons.tacho_bed,                                // 1
+      TachoIcons.tacho_card,                                  // 2
       TachoIcons.tacho_empty,                                  // 3
       TachoChars.tachoChars('2') ?? TachoIcons.tacho_empty,   // 4
       TachoChars.tachoChars('4') ?? TachoIcons.tacho_empty,   // 5
