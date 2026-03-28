@@ -165,7 +165,7 @@ class _UtcSecondRow extends StatelessWidget {
 
     // Grid 0 -> bed, grid 1 -> empty, grid 2 -> empty, grid 3.. -> UTC text, grid 15 -> bed.
     symbols[0] = TachoIcons.tacho_bed;
-    symbols[1] = TachoIcons.tacho_card;
+    symbols[1] = TachoIcons.tacho_empty;
     symbols[2] = TachoIcons.tacho_empty;
     symbols[15] = TachoIcons.tacho_bed;
 
